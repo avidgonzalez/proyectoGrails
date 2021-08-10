@@ -1,5 +1,6 @@
 package miapp
 
+import domain.Book
 import domain.RentBookDTO
 import domain.RentRensponseDTO
 import grails.converters.JSON
@@ -13,12 +14,12 @@ class RentController {
     def index() { }
 
     def searchBook(){
-        def book = rentServicesService.searchBook(Integer.valueOf(params.list('idBook').get(0)))
+        Book book = rentServicesService.searchBook(Integer.valueOf(params.list('idBook').get(0)))
         render(contentType: "application/json") {book}
     }
 
     def searchBooks(){
-        def books = rentServicesService.searchBooks()
+        Book[] books = rentServicesService.searchBooks()
         render(contentType: "application/json") {books}
     }
 
@@ -28,7 +29,7 @@ class RentController {
     }
 
     def searchRentBook(){
-        RentRensponseDTO response = rentServicesService.searchRentBook(params.list('idRent'))
+        RentRensponseDTO response = rentServicesService.searchRentBook(Integer.valueOf(params.list('idRent').get(0)))
         render response  as JSON
     }
 }

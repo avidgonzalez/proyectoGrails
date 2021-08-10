@@ -12,18 +12,15 @@ import java.text.SimpleDateFormat
 @Transactional
 class RentServicesService {
 
-    def serviceMethod() {
-    }
-
     @Transactional
     def searchBook(Integer id){
-        def book = Book.get(id)
+        Book book = Book.get(id)
         return book
     }
 
     @Transactional
     def searchBooks(){
-        def books = Book.findAll()
+        Book[] books = Book.findAll()
         return books
     }
 
@@ -40,11 +37,11 @@ class RentServicesService {
     }
 
     @Transactional
-    def searchRentBook(def id){
+    def searchRentBook(Integer id){
         def rent = Rent.get(id)
         Person personResponse = new Person(idDocument: rent.person.idDocument, name: rent.person.name)
         println(rent.books.stream().forEach({ a -> println(a.getId()) }))
-        def response = new RentRensponseDTO(outDate: rent.outDate, expirationDate: rent.expirationDate, person: rent.person,books: rent.books )
+        RentRensponseDTO response = new RentRensponseDTO(outDate: rent.outDate, expirationDate: rent.expirationDate, person: rent.person,books: rent.books )
         return response
     }
 
